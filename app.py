@@ -24,7 +24,6 @@ from auth import (
 )
 
 from academics import (
-    show_academics,
     CBC_SUBJECTS,
     calculate_grade,
     calculate_results,
