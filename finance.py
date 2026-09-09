@@ -1,73 +1,71 @@
-def allocate_payment(
+# =========================================
+# SCHOOL FEE STRUCTURE
+# =========================================
 
-    amount,
+FEE_STRUCTURE = {
 
-    tuition_balance,
+    "Play Group": 5000,
 
-    transport_balance,
+    "PP1": 7000,
 
-    library_balance
+    "PP2": 7000,
 
-):
+    "Grade 1": 10000,
 
-    allocation = {
+    "Grade 2": 10000,
 
-        "tuition": 0,
+    "Grade 3": 10000,
 
-        "transport": 0,
+    "Grade 4": 10000,
 
-        "library": 0,
+    "Grade 5": 10000,
 
-        "credit": 0
+    "Grade 6": 10000,
 
-    }
+    "Grade 7": 12000,
+
+    "Grade 8": 12000,
+
+    "Grade 9": 12000
+}
 
 
-    # FIRST PRIORITY: TUITION
+def get_class_fee(class_name):
 
-    tuition_paid = min(
-        amount,
-        tuition_balance
+    return FEE_STRUCTURE.get(
+        class_name,
+        0
     )
 
-    allocation["tuition"] = tuition_paid
 
-    amount -= tuition_paid
+def get_minimum_admission_fee(class_name):
 
+    fee = get_class_fee(class_name)
 
-    # SECOND PRIORITY: TRANSPORT
-
-    if amount > 0:
-
-        transport_paid = min(
-            amount,
-            transport_balance
-        )
-
-        allocation["transport"] = transport_paid
-
-        amount -= transport_paid
+    return fee * 0.5
 
 
-    # THIRD PRIORITY: LIBRARY
+def calculate_balance(total_bill, amount_paid):
 
-    if amount > 0:
-
-        library_paid = min(
-            amount,
-            library_balance
-        )
-
-        allocation["library"] = library_paid
-
-        amount -= library_paid
+    return max(
+        total_bill - amount_paid,
+        0
+    )
 
 
-    # EXTRA MONEY BECOMES CREDIT
+def allocate_payment(
+    amount,
+    outstanding_balance
+):
 
-    if amount > 0:
+    if amount >= outstanding_balance:
 
-        allocation["credit"] = amount
+        return {
+            "allocated": outstanding_balance,
+            "credit": amount - outstanding_balance
+        }
 
-
-    return allocation
+    return {
+        "allocated": amount,
+        "credit": 0
+    }
