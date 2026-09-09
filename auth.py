@@ -1,4 +1,5 @@
 import bcrypt
+
 from database import SessionLocal
 from models import User
 
@@ -6,16 +7,16 @@ from models import User
 def hash_password(password):
 
     return bcrypt.hashpw(
-        password.encode(),
+        password.encode("utf-8"),
         bcrypt.gensalt()
-    ).decode()
+    ).decode("utf-8")
 
 
-def verify_password(password, hashed_password):
+def verify_password(password, password_hash):
 
     return bcrypt.checkpw(
-        password.encode(),
-        hashed_password.encode()
+        password.encode("utf-8"),
+        password_hash.encode("utf-8")
     )
 
 
@@ -25,54 +26,34 @@ def create_default_users():
 
     users = [
 
-    (
-        "director",
-        "director123",
-        "DIRECTOR"
-    ),
+        ("director", "director123", "DIRECTOR"),
 
-    (
-        "accountant",
-        "account123",
-        "ACCOUNTANT"
-    ),
+        ("accountant", "account123", "ACCOUNTANT"),
 
-    (
-        "teacher",
-        "teacher123",
-        "TEACHER"
-    ),
+        ("teacher", "teacher123", "TEACHER"),
 
-    (
-        "receptionist",
-        "reception123",
-        "RECEPTIONIST"
-    )
+        ("receptionist", "reception123", "RECEPTIONIST")
 
-]
+    ]
 
     for username, password, role in users:
 
-        existing = db.query(User).filter(
+        existing_user = db.query(User).filter(
             User.username == username
         ).first()
 
-        if not existing:
+        if not existing_user:
 
             user = User(
-
                 username=username,
-
                 password_hash=hash_password(password),
-
-                role=role
-
+                role=role,
+                active=True
             )
 
             db.add(user)
 
     db.commit()
-
     db.close()
 
 
@@ -84,13 +65,22 @@ def login_user(username, password):
         User.username == username
     ).first()
 
+    if user:
+
+        if verify_password(
+            password,
+            user.password_hash
+        ):
+
+            role = user.role
+
+            db.close()
+
+            return {
+                "username": username,
+                "role": role
+            }
+
     db.close()
-
-    if user and verify_password(
-        password,
-        user.password_hash
-    ):
-
-        return user
 
     return None
