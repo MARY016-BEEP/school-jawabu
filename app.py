@@ -791,6 +791,42 @@ def main_system():
 
             expenses_page()
 
+    #Receptionist Access
+
+    elif role == "RECEPTIONIST":
+
+    menu = st.sidebar.radio(
+
+        "RECEPTION MENU",
+
+        [
+
+            "Student Admission",
+
+            "Pending Admissions",
+
+            "Student Search"
+
+        ]
+    )
+
+
+    if menu == "Student Admission":
+
+        from admission import admission_page
+
+        admission_page()
+
+
+    elif menu == "Pending Admissions":
+
+        pending_admissions()
+
+
+    elif menu == "Student Search":
+
+        student_search()
+
 
     # ACCOUNTANT ACCESS
 
