@@ -25,13 +25,31 @@ def create_default_users():
 
     users = [
 
-        ("director", "director123", "DIRECTOR"),
+    (
+        "director",
+        "director123",
+        "DIRECTOR"
+    ),
 
-        ("accountant", "account123", "ACCOUNTANT"),
+    (
+        "accountant",
+        "account123",
+        "ACCOUNTANT"
+    ),
 
-        ("teacher", "teacher123", "TEACHER")
+    (
+        "teacher",
+        "teacher123",
+        "TEACHER"
+    ),
 
-    ]
+    (
+        "receptionist",
+        "reception123",
+        "RECEPTIONIST"
+    )
+
+]
 
     for username, password, role in users:
 
