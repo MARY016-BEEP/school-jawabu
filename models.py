@@ -58,7 +58,7 @@ class Student(Base):
     registration_number = Column(
         String(50),
         unique=True,
-        nullable=False
+        nullable=True
     )
 
     student_name = Column(String(200))
@@ -77,9 +77,19 @@ class Student(Base):
 
     class_name = Column(String(50))
 
+    admission_fee_paid = Column(
+        Float,
+        default=0
+    )
+
+    admission_status = Column(
+        String(50),
+        default="PENDING PAYMENT"
+    )
+
     status = Column(
         String(30),
-        default="ACTIVE"
+        default="PENDING"
     )
 
 
