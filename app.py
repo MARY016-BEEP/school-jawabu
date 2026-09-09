@@ -23,7 +23,8 @@ from auth import (
     login_user
 )
 
-from academics import show_academics
+from academics import (
+    show_academics
     CBC_SUBJECTS,
     calculate_grade,
     calculate_results,
