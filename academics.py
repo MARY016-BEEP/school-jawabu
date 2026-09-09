@@ -1,7 +1,3 @@
-# ==========================================
-# CBC SUBJECTS
-# ==========================================
-
 CBC_SUBJECTS = {
 
     "Play Group": [
@@ -60,7 +56,6 @@ CBC_SUBJECTS = {
         "Science and Technology",
         "Social Studies",
         "Creative Arts",
-        "Agriculture",
         "Religious Education"
     ],
 
@@ -71,7 +66,6 @@ CBC_SUBJECTS = {
         "Science and Technology",
         "Social Studies",
         "Creative Arts",
-        "Agriculture",
         "Religious Education"
     ],
 
@@ -82,7 +76,6 @@ CBC_SUBJECTS = {
         "Science and Technology",
         "Social Studies",
         "Creative Arts",
-        "Agriculture",
         "Religious Education"
     ],
 
@@ -93,9 +86,8 @@ CBC_SUBJECTS = {
         "Integrated Science",
         "Social Studies",
         "Pre-Technical Studies",
-        "Agriculture",
         "Creative Arts",
-        "Religious Education"
+        "Agriculture"
     ],
 
     "Grade 8": [
@@ -105,9 +97,8 @@ CBC_SUBJECTS = {
         "Integrated Science",
         "Social Studies",
         "Pre-Technical Studies",
-        "Agriculture",
         "Creative Arts",
-        "Religious Education"
+        "Agriculture"
     ],
 
     "Grade 9": [
@@ -117,44 +108,49 @@ CBC_SUBJECTS = {
         "Integrated Science",
         "Social Studies",
         "Pre-Technical Studies",
-        "Agriculture",
         "Creative Arts",
-        "Religious Education"
+        "Agriculture"
     ]
 }
 
 
-# ==========================================
-# CALCULATE GRADE
-# ==========================================
+EXAMS = [
+    "Opening Exam",
+    "Mid Term Exam",
+    "End Term Exam"
+]
+
+
+PROMOTION_MAP = {
+
+    "Play Group": "PP1",
+    "PP1": "PP2",
+    "PP2": "Grade 1",
+    "Grade 1": "Grade 2",
+    "Grade 2": "Grade 3",
+    "Grade 3": "Grade 4",
+    "Grade 4": "Grade 5",
+    "Grade 5": "Grade 6",
+    "Grade 6": "Grade 7",
+    "Grade 7": "Grade 8",
+    "Grade 8": "Grade 9"
+}
+
 
 def calculate_grade(mark):
 
     if mark >= 80:
-        return "EE"
-
-    elif mark >= 70:
-        return "ME"
+        return "EE - Exceeding Expectation"
 
     elif mark >= 60:
-        return "AE"
-
-    elif mark >= 50:
-        return "BE"
+        return "ME - Meeting Expectation"
 
     elif mark >= 40:
-        return "AP"
-
-    elif mark >= 30:
-        return "BP"
+        return "AE - Approaching Expectation"
 
     else:
-        return "BELOW EXPECTATION"
+        return "BE - Below Expectation"
 
-
-# ==========================================
-# CALCULATE RESULTS
-# ==========================================
 
 def calculate_results(marks):
 
@@ -166,33 +162,3 @@ def calculate_results(marks):
     mean = total / len(marks)
 
     return total, round(mean, 2)
-
-
-# ==========================================
-# STUDENT PROMOTION MAP
-# ==========================================
-
-PROMOTION_MAP = {
-
-    "Play Group": "PP1",
-
-    "PP1": "PP2",
-
-    "PP2": "Grade 1",
-
-    "Grade 1": "Grade 2",
-
-    "Grade 2": "Grade 3",
-
-    "Grade 3": "Grade 4",
-
-    "Grade 4": "Grade 5",
-
-    "Grade 5": "Grade 6",
-
-    "Grade 6": "Grade 7",
-
-    "Grade 7": "Grade 8",
-
-    "Grade 8": "Grade 9"
-}
